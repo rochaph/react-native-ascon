@@ -10,9 +10,7 @@ export default function FileScreen(): React.JSX.Element {
   const [result, setResult] = React.useState<Uint8Array | null>(null);
 
   async function pickDocument() {
-    const document: DocumentPickerResponse = await Picker.pickSingle({
-      allowMultiSelection: false,
-    });
+    const document: DocumentPickerResponse = await Picker.pickSingle();
     const fileString = await RNFetchBlob.fs.readFile(document.uri, 'utf8');
     setFile(fileString);
   }

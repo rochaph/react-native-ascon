@@ -1,4 +1,11 @@
-import {SafeAreaView, ScrollView, Text, View, Button} from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+  Button,
+  StyleSheet,
+} from 'react-native';
 import React from 'react';
 import Picker, {DocumentPickerResponse} from 'react-native-document-picker';
 import {Ascon} from 'ascon-js';
@@ -20,25 +27,45 @@ export default function FileScreen(): React.JSX.Element {
     setResult(Ascon.hash(arquivo));
   }
 
+  function clearFile() {
+    setFile(null);
+    setResult(null);
+  }
+
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
+        <View style={styles.container}>
           <Button title="Select a file" onPress={pickDocument} />
 
-          {file && (
-            <Button onPress={executeAsconHashFile} title="Run" color="blue" />
+          {!!file && (
+            <View>
+              <Button onPress={executeAsconHashFile} title="Run" color="blue" />
+              <Button onPress={clearFile} title="Clear" color="red" />
+
+            </View>
           )}
-          <Text>
+
+          <Text style={styles.text}>
             {result &&
-              Buffer.from(
+              `Hash Result: ${Buffer.from(
                 result.buffer,
                 result.byteOffset,
                 result.byteLength,
-              ).toString('hex')}
+              ).toString('hex')}`}
           </Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 50,
+  },
+  text: {
+    marginTop:25,
+    color: 'black',
+  },
+});

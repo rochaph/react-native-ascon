@@ -4,6 +4,7 @@ import {
   Text,
   View,
   Button,
+  StyleSheet,
 } from 'react-native';
 import React from 'react';
 import {Ascon} from 'ascon-js';
@@ -32,12 +33,21 @@ export default function HashScreen(): React.JSX.Element  {
     <SafeAreaView >
       <ScrollView
         contentInsetAdjustmentBehavior="automatic">
-        <View>
+        <View style={styles.container}>
           <Button onPress={executeAsconHash} title="Run" color="red" />
-          <Text>Execution time: {time && `${time} ms`}</Text>
+          <Text style={styles.text}>Execution time: {time && `${time} ms`}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    margin: 50,
+  },
+  text: {
+    marginTop:25,
+    color: 'black',
+  },
+});

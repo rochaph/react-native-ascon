@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView, Text, View, Button} from 'react-native';
+import {SafeAreaView, ScrollView, Text, View, Button, StyleSheet} from 'react-native';
 import React from 'react';
 import {Ascon} from 'ascon-js';
 import crypto from 'crypto';
@@ -34,11 +34,21 @@ export default function HashScreen(): React.JSX.Element {
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
+        <View style={styles.container}>
           <Button onPress={executeAeadHash} title="Run" color="blue" />
-          <Text>Execution time: {time && `${time} ms`}</Text>
+          <Text style={styles.text}>Execution time: {time && `${time} ms`}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    margin: 50,
+  },
+  text: {
+    marginTop:25,
+    color: 'black',
+  },
+});

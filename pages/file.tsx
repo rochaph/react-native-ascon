@@ -7,9 +7,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
-import Picker, {DocumentPickerResponse} from 'react-native-document-picker';
-import {Ascon} from 'ascon-js';
-import {Buffer} from 'buffer';
+import Picker, { DocumentPickerResponse } from 'react-native-document-picker';
+import { Ascon } from 'ascon-js';
+import { Buffer } from 'buffer';
 import RNFetchBlob from 'rn-fetch-blob';
 
 export default function FileScreen(): React.JSX.Element {
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     margin: 50,
   },
   text: {
-    marginTop:25,
+    marginTop: 25,
     color: 'black',
   },
 });

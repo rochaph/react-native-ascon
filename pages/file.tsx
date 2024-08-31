@@ -11,8 +11,10 @@ import Picker, { DocumentPickerResponse } from 'react-native-document-picker';
 import { Ascon } from 'ascon-js';
 import { Buffer } from 'buffer';
 import RNFetchBlob from 'rn-fetch-blob';
+import { useKeepAwake } from '@sayem314/react-native-keep-awake';
 
 export default function FileScreen(): React.JSX.Element {
+  useKeepAwake();
   const [file, setFile] = React.useState<string | null>(null);
   const [result, setResult] = React.useState<Uint8Array | null>(null);
 

@@ -8,8 +8,10 @@ import {
 } from 'react-native';
 import React from 'react';
 import {Ascon} from 'ascon-js';
+import { useKeepAwake } from '@sayem314/react-native-keep-awake';
 
 export default function HashScreen(): React.JSX.Element {
+  useKeepAwake();
   const n = 1000000;
   const [totalTime, setTotalTime] = React.useState<number | null>(null);
   const [avgTime, setAvgTime] = React.useState<number | null>(null);

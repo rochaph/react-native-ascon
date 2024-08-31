@@ -23,7 +23,7 @@ export default function HashScreen(): React.JSX.Element {
     for (let i = 0; i < n; i++) {
       const key = crypto.randomBytes(16);
       const nonce = crypto.randomBytes(16);
-      const plaintext = new TextEncoder().encode('ascon');
+      const plaintext = new TextEncoder().encode('ascon' + i);
       const associatedData = new TextEncoder().encode('associated');
 
       const start = performance.now();

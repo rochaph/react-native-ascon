@@ -9,16 +9,23 @@ import {
 import React from 'react';
 import {Ascon} from 'ascon-js';
 import crypto from 'crypto';
-import { useKeepAwake } from '@sayem314/react-native-keep-awake';
+import {useKeepAwake} from '@sayem314/react-native-keep-awake';
 
 export default function HashScreen(): React.JSX.Element {
   useKeepAwake();
+
   const n = 1000000;
+  const [maxTime, setMaxTime] = React.useState<number>(0);
+  const [minTime, setMinTime] = React.useState<number>(0);
   const [totalTime, setTotalTime] = React.useState<number | null>(null);
   const [avgTime, setAvgTime] = React.useState<number | null>(null);
+  const [finished, setFinished] = React.useState<boolean>(false);
 
   function executeAeadHash() {
-    let time = 0;
+    setFinished(false);
+    let min = Number.MAX_VALUE;
+    let max = 0;
+    let total = 0;
 
     for (let i = 0; i < n; i++) {
       const key = crypto.randomBytes(16);
@@ -31,10 +38,24 @@ export default function HashScreen(): React.JSX.Element {
         associatedData,
       });
       const end = performance.now();
-      time += end - start;
+      const calculatedTime = end - start;
+
+      if (calculatedTime < min) {
+        min = calculatedTime;
+      }
+
+      if (calculatedTime > max) {
+        max = calculatedTime;
+      }
+
+      total += calculatedTime;
     }
-    setTotalTime(time);
-    setAvgTime(time / n);
+
+    setMinTime(min);
+    setMaxTime(max);
+    setTotalTime(total);
+    setAvgTime(total / n);
+    setFinished(true);
   }
 
   return (
@@ -42,12 +63,22 @@ export default function HashScreen(): React.JSX.Element {
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={styles.container}>
           <Button onPress={executeAeadHash} title="Run" color="blue" />
-          <Text style={styles.text}>
-            Execution time (total): {totalTime && `${totalTime} ms`}
-          </Text>
-          <Text style={styles.text}>
-            Execution time (avg): {avgTime && `${avgTime} ms`}
-          </Text>
+          {finished && (
+            <React.Fragment>
+              <Text style={styles.text}>
+                Execution time (total): {totalTime && `${totalTime} ms`}
+              </Text>
+              <Text style={styles.text}>
+                Maximum time (max): {`${maxTime} ms`}
+              </Text>
+              <Text style={styles.text}>
+                Minimum time (min): {`${minTime} ms`}
+              </Text>
+              <Text style={styles.text}>
+                Execution time (avg): {avgTime && `${avgTime} ms`}
+              </Text>
+            </React.Fragment>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>

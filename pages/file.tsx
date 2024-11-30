@@ -7,11 +7,11 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
-import Picker, { DocumentPickerResponse } from 'react-native-document-picker';
-import { Ascon } from 'ascon-js';
-import { Buffer } from 'buffer';
+import Picker, {DocumentPickerResponse} from 'react-native-document-picker';
+import {Ascon} from 'ascon-js';
+import {Buffer} from 'buffer';
 import RNFetchBlob from 'rn-fetch-blob';
-import { useKeepAwake } from '@sayem314/react-native-keep-awake';
+import {useKeepAwake} from '@sayem314/react-native-keep-awake';
 
 export default function FileScreen(): React.JSX.Element {
   useKeepAwake();
@@ -44,7 +44,6 @@ export default function FileScreen(): React.JSX.Element {
             <View>
               <Button onPress={executeAsconHashFile} title="Run" color="blue" />
               <Button onPress={clearFile} title="Clear" color="red" />
-
             </View>
           )}
 
